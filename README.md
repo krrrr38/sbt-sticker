@@ -30,3 +30,5 @@ sbt-sticker uses following images. (If not exist, sbt-sticker generate default f
 	- `~/.sbt/sticker/images/success.png`
 - When command failed
 	- `~/.sbt/sticker/images/failure.png`
+
+The default image file is from [http://www.scala-sbt.org/](http://www.scala-sbt.org/)
