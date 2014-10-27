@@ -1,4 +1,4 @@
-package com.github.krrrr38
+package com.krrrr38.sbt.sticker
 
 import sbt._
 

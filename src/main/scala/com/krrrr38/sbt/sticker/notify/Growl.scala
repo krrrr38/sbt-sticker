@@ -1,4 +1,4 @@
-package com.github.krrrr38.notify
+package com.krrrr38.sbt.sticker.notify
 
 import scala.language.postfixOps
 import scala.sys.process.Process

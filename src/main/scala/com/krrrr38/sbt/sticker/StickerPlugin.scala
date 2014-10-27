@@ -1,8 +1,8 @@
-package com.github.krrrr38
+package com.krrrr38.sbt.sticker
 
 import sbt._
 import Keys._
-import com.github.krrrr38.notify.Growl
+import com.krrrr38.sbt.sticker.notify.Growl
 
 object StickerPlugin extends AutoPlugin {
   override lazy val projectSettings = Seq(commands += sticker)
