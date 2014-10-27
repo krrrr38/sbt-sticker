@@ -6,8 +6,6 @@ Show a notification as a sticker while command running.
 
 This is a sbt plugin. While sbt command runnning, your notification is fixed like a sticker. When change the sticker, the command would be finished and it will be disappear soon automatically.
 
-To show a sticker, just add `sticker` before basic commands in sbt console.
-
 ![](./images/howto.gif)
 
 ### Requirement
@@ -19,6 +17,28 @@ Download [GrowlNotify](http://growl.info/downloads#generaldownloads).
 #### Others
 
 Not supported yet.
+
+### Usage
+
+- First, write following sbt-sticker plugin declaration into `project/plugins.sbt`(project seting) or `~/.sbt/0.13/plugins/build.sbt`(global setting).
+
+```scala
+resolvers += "Maven Repository on Github" at "http://krrrr38.github.io/maven/"
+
+addSbtPlugin("com.krrrr38" % "sbt-sticker" % "0.0.1")
+```
+
+- Next, enable plugin
+	- sbt-sticker uses `AutoPlugin` which is a new feature in sbt 0.13.5.
+	- SEE [Enabling and disabling auto plugins](http://www.scala-sbt.org/0.13/tutorial/Using-Plugins.html#Enabling+and+disabling+auto+plugins)
+
+In `build.sbt`, write following configuration.
+
+```scala
+lazy val root = project.in( file(".") ).enablePlugins(StickerPlugin)
+```
+
+To show a sticker, just add `sticker` before basic commands in sbt console.
 
 ### Customize Images
 
