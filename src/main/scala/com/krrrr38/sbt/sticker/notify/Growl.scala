@@ -13,7 +13,7 @@ object Growl {
   def exec(options: Map[String, Any], flags: Set[String]): Unit =
     binOpt.fold(error) { bin: String =>
       val arguments = options.flatMap { case (option, value) => Seq(s"-$option", value.toString) }.toSeq ++ flags.map("-" + _)
-      Process(bin, arguments.toSeq).! == 0
+      Process(bin, arguments.toSeq).!
     }
 
   private[this] def error =

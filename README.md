@@ -20,25 +20,26 @@ Not supported yet.
 
 ### Usage
 
-- First, write following sbt-sticker plugin declaration into `project/plugins.sbt`(project seting) or `~/.sbt/0.13/plugins/build.sbt`(global setting).
+- write following sbt-sticker plugin declaration into `project/plugins.sbt`(project seting) or `~/.sbt/0.13/plugins/build.sbt`(global setting).
 
 ```scala
 resolvers += "Maven Repository on Github" at "http://krrrr38.github.io/maven/"
 
-addSbtPlugin("com.krrrr38" % "sbt-sticker" % "0.0.1")
+addSbtPlugin("com.krrrr38" % "sbt-sticker" % "0.0.2")
 ```
 
-- Next, enable plugin
+That's ALL!! Now, you can use `sticker` command in any projects. To show a sticker, just add `sticker` before basic commands in sbt console.
+
+#### Disable Plugin
+- If wanna disable plugin in some project...?
 	- sbt-sticker uses `AutoPlugin` which is a new feature in sbt 0.13.5.
 	- SEE [Enabling and disabling auto plugins](http://www.scala-sbt.org/0.13/tutorial/Using-Plugins.html#Enabling+and+disabling+auto+plugins)
 
-In `build.sbt`, write following configuration.
+In `build.sbt`, write following configuration, then the plugin would be disabled.
 
 ```scala
-lazy val root = project.in( file(".") ).enablePlugins(StickerPlugin)
+lazy val root = project.in( file(".") ).disablePlugins(StickerPlugin)
 ```
-
-To show a sticker, just add `sticker` before basic commands in sbt console.
 
 ### Customize Images
 

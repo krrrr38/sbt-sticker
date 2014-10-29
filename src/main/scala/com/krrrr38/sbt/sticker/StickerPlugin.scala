@@ -5,7 +5,8 @@ import Keys._
 import com.krrrr38.sbt.sticker.notify.Growl
 
 object StickerPlugin extends AutoPlugin {
-  override lazy val projectSettings = Seq(commands += sticker)
+  override def globalSettings = Seq(commands += sticker)
+  override def trigger = allRequirements
 
   private[this] val stickerName = "sbt-sticker"
 
