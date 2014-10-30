@@ -4,6 +4,8 @@ import sbt._
 import Keys._
 import com.krrrr38.sbt.sticker.notify.Growl
 
+import scala.util.{Try, Success, Failure}
+
 object StickerPlugin extends AutoPlugin {
   override def globalSettings = Seq(commands += sticker)
   override def trigger = allRequirements
@@ -57,21 +59,30 @@ object StickerPlugin extends AutoPlugin {
       .image(StickerImage.getStartImagePath)
       .exec
 
-    val (state, isSuccess) = commands
+    def close(isSuccess: Boolean): Unit = {
+      val timeSec = (System.currentTimeMillis() - startTime) / 1000
+      val message =
+        if (isSuccess) {
+          s"[SUCCESS] Total time: $timeSec s"
+        } else {
+          s"[FAILURE] Total time: $timeSec s"
+        }
+      Growl(message)
+        .name(stickerName)
+        .title(trigger)
+        .identifier(identifier)
+        .image(StickerImage.getResultImagePath(isSuccess))
+        .exec
+    }
 
-    val timeSec = (System.currentTimeMillis() - startTime) / 1000
-    val message =
-      if (isSuccess) {
-        s"[SUCCESS] Total time: $timeSec s"
-      } else {
-        s"[FAILURE] Total time: $timeSec s"
-      }
-    Growl(message)
-      .name(stickerName)
-      .title(trigger)
-      .identifier(identifier)
-      .image(StickerImage.getResultImagePath(isSuccess))
-      .exec
-    state
+    Try(commands) match {
+      case Success((nextState, isSuccess)) =>
+        close(isSuccess)
+        nextState
+      case Failure(e) =>
+        e.printStackTrace()
+        close(isSuccess = false)
+        state.fail
+    }
   }
 }
