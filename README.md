@@ -25,7 +25,7 @@ Not supported yet.
 ```scala
 resolvers += "Maven Repository on Github" at "http://krrrr38.github.io/maven/"
 
-addSbtPlugin("com.krrrr38" % "sbt-sticker" % "0.0.2")
+addSbtPlugin("com.krrrr38" % "sbt-sticker" % "0.0.3")
 ```
 
 That's ALL!! Now, you can use `sticker` command in any projects. To show a sticker, just add `sticker` before basic commands in sbt console.
