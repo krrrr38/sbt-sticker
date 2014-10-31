@@ -27,11 +27,14 @@ object StickerPlugin extends AutoPlugin {
 
       notify(state, trigger) {
         val nextState = Command.process(trigger, state)
-        runNextCommand(nextState, isSuccess = true)
+        if (nextState.isContinuous)
+          (nextState, nextState.hasSucceeded)
+        else
+          runNextCommand(nextState, isSuccess = true)
       }
     }
 
-  implicit class ContinuousState(state: State) {
+  implicit class FollowingState(state: State) {
     def hasNext: Boolean = state.remainingCommands match {
       // if command is executed on login shell, nothing remain.
       // if command is executed on sbt shell, only "shell" command remain.
@@ -44,8 +47,10 @@ object StickerPlugin extends AutoPlugin {
       nextState.copy(remainingCommands = state.remainingCommands.tail)
     }
 
-    // same process in state.fail
+    // XXX same process in state.fail
     def hasSucceeded: Boolean = state.remainingCommands.isEmpty || state.onFailure.isDefined
+
+    def isContinuous: Boolean = state.get(Watched.ContinuousState).isDefined
   }
 
   private[this] def notify(state: State, trigger: String)(commands: => (State, Boolean)): State = {

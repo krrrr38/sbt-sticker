@@ -4,7 +4,7 @@ name := "sbt-sticker"
 
 organization := "com.krrrr38"
 
-version := "0.0.4"
+version := "0.0.5"
 
 isSnapshot := false
 
