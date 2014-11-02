@@ -48,7 +48,19 @@ object StickerPlugin extends AutoPlugin {
     }
 
     // XXX same process in state.fail
-    def hasSucceeded: Boolean = state.remainingCommands.isEmpty || state.onFailure.isDefined
+    def hasSucceeded: Boolean = {
+      if(state.remainingCommands.isEmpty) {
+        state.next match {
+          case n: sbt.State.Return => n.result match {
+            case ex: sbt.Exit if ex.code != 0 => false
+            case _ => true
+          }
+          case _ => true
+        }
+      } else {
+        state.remainingCommands.head == State.FailureWall || state.onFailure.isDefined
+      }
+    }
 
     def isContinuous: Boolean = state.get(Watched.ContinuousState).isDefined
   }
