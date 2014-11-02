@@ -11,10 +11,8 @@ isSnapshot := false
 publishMavenStyle := true
 
 publishTo := {
-  val ghpageMavenDir: Option[String] = {
-    val searchResult = (Process(Seq("ghq", "list", "--full-path")) #| Process(Seq("grep", "krrrr38/maven")) !!).trim
-    if (searchResult.isEmpty) None else Some(searchResult)
-  }
+  val ghpageMavenDir: Option[String] =
+    (Process("ghq list --full-path") #| Process("grep krrrr38/maven")).lines.headOption
   ghpageMavenDir.map { dirPath =>
     Resolver.file(
       organization.value,
