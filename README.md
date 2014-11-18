@@ -2,6 +2,10 @@
 
 Show a notification as a sticker while command running.
 
+#### NOTICE
+
+> **Actually, this logic is not correct, but almost all commands would be work well with `sticker`.**
+
 ### About
 
 This is a sbt plugin. While sbt command runnning, your notification is fixed like a sticker. When change the sticker, the command would be finished and it will be disappear soon automatically.

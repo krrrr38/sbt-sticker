@@ -47,7 +47,7 @@ object StickerPlugin extends AutoPlugin {
       nextState.copy(remainingCommands = state.remainingCommands.tail)
     }
 
-    // XXX same process in state.fail
+    // XXX similar process with state.fail, but not correct way
     def hasSucceeded: Boolean = {
       if(state.remainingCommands.isEmpty) {
         state.next match {
